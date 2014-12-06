@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 using System;
 using System.Collections;
+using System.Collections.Generic;
 namespace NinetyNineProblemsC
 {
 	public class Lists
@@ -24,6 +25,8 @@ namespace NinetyNineProblemsC
 			p04 ();
 			p05 ();
 			p06 ();
+			p07 ();
+			p08 ();
 		}
 
 		/**
@@ -161,9 +164,90 @@ namespace NinetyNineProblemsC
 
 		/**
 		 * Problem 07.
-		 * Flatten a list structure.
+		 * Flatten a nested list structure.
 		 */
 		public void p07(){
+			Console.WriteLine ("\nP07 - Flatten nested list structure.");
+			List<Object> list = new List<Object> ();
+			List<int> list1 = new List<int> ();
+			list.Add (1);
+			list.Add (1);
+			int two = 2;
+			List<int> list2 = new List<int> ();
+			list2.Add (5);
+			list2.Add (8);
+			int three = 3;
+			List<Object> list3 = new List<Object> ();
+			list3.Add (three);
+			list3.Add (list2);
+			list.Add (list1);
+			list.Add (two);
+			list.Add (list3);
+			List<int> flatten = new List<int> ();
+
+			foreach(var item in list){
+				flattenList(item, flatten);
+			}
+			ArrayList flatten2 = new ArrayList (flatten);
+			printList(flatten2, "flatten");
+			Console.WriteLine ("P07 Complete.\n");
+		}
+
+		/**
+		 * Problem 07.
+		 * Recursive helper function to flatten a nested list structure.
+		 */
+		public void flattenList(Object item, List<int> flat){
+			int test = 0;
+			List<int> listInts = new List<int> ();
+			List<Object> listObjects = new List<Object> ();
+			if (item.GetType () == test.GetType ()) {
+				flat.Add ((int)item);
+			} else if (item.GetType () == listInts.GetType ()) {
+				IList temp = item as IList;
+				foreach (var i in temp) {
+					flat.Add ((int)i);
+				}
+			} else if (item.GetType () == listObjects.GetType ()) {
+				IList temp = item as IList;
+				foreach(var i in temp){
+					flattenList (i, flat);
+				}
+			}	
+		}
+
+		/**
+		 * Problem 08.
+		 * Eliminate consecutive duplicates of list elements.
+		 */
+		public void p08(){
+			Console.WriteLine ("P08 - Remove consecutive duplicates of list elements.");
+			List<char> list;
+			list = new List<char> (new char[] {'a','a','a','a', 'b', 'c', 'c', 'a','a','d','e','e','e','e'});
+			ArrayList original = new ArrayList (list);
+			printList (original, "original");
+			List<char> result = new List<char> ();
+
+			foreach (char c in list) {
+				if(result.Count == 0){
+					result.Add (c);
+				}else{
+					if(c != result[result.Count - 1]){
+						result.Add (c);
+					}
+				}
+			}
+			ArrayList res = new ArrayList(result);
+			printList (res, "removeDupes");
+			Console.WriteLine ("P08 Complete.\n");
+		}
+
+		/**
+		 * Problem 09.
+		 * Pack consecutive elements of list elements into sublists.
+		 * IN PROGRESS.
+		 */
+		public void p09(){
 
 		}
 
